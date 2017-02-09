@@ -4,16 +4,17 @@ from quspin.tools.measurements import ent_entropy # entropies
 from numpy.random import ranf,seed # pseudo random numbers
 from joblib import delayed,Parallel # parallelisation
 import numpy as np # generic math functions
-from time import time # timing package
+from time import time # a timing package
+import sys
 #
 ##### define simulation parameters #####
-n_real=1 # number of disorder realisations
+n_real=2 # number of disorder realisations
 n_jobs=1 # number of spawned processes used for parallelisation
 #
 ##### define model parameters #####
 L=10 # system size
 Jcoup=1.0 # interaction
-h_MBL=10 # MBL disorder strength
+h_MBL=float(sys.argv[1])/10 # MBL disorder strength
 #
 ##### times #####
 texpmin=-2
@@ -94,13 +95,15 @@ if __name__ == '__main__':
         """
 #        eachImb = np.asarray(Parallel(n_jobs=n_jobs)(delayed(realization)(H_Heis,psi_0,basis,ImbDiag,time_steps,i) for i in range(n_real)))
 #        eachImb = results[0]
-#        ents = 
-        #eachImb = [realization(H_Heis,psi_0,basis,ImbDiag,time_steps,i) for i in range(n_real)]
+#        ents =
+
+
+        eachImb =  np.asarray([realization(H_Heis,psi_0,basis,ImbDiag,time_steps,i) for i in range(n_real)])
         #
 
-        mean_Imb  = realization(H_Heis,psi_0,basis,ImbDiag,time_steps,0)
+        mean_Imb  = np.mean(eachImb,axis=0)
         #
-        np.savetxt('imbalance.dat',np.transpose((time_steps,mean_Imb)))
+        np.savetxt('imbalance_h'+str(h_MBL)+'.dat',np.transpose((time_steps,mean_Imb)))
 
         #        np.save('imbalance',(time_steps,mean_Imb))
         ##### plot results #####
@@ -115,6 +118,6 @@ if __name__ == '__main__':
         plt.grid(True,which='both') # plot grid
         plt.tick_params(labelsize=16)
         # save figure
-        plt.savefig('imb.pdf', bbox_inches='tight')
+        plt.savefig('imb_h'+str(h_MBL)+'.pdf', bbox_inches='tight')
 
  #       plt.show() # show plots
