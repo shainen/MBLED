@@ -30,7 +30,7 @@ cp -r ${prj} $$SCRATCH_DIR/
 cd $$SCRATCH_DIR/
 
 # Run the script
-source activate my_root
+source activate quspin
 time python ${prj}/MBLED.py $$SGE_TASK_ID
 
 # Remove the now-useless files

@@ -8,11 +8,11 @@ from time import time # a timing package
 import sys
 #
 ##### define simulation parameters #####
-n_real=2 # number of disorder realisations
+n_real=100 # number of disorder realisations
 n_jobs=1 # number of spawned processes used for parallelisation
 #
 ##### define model parameters #####
-L=10 # system size
+L=18 # system size
 Jcoup=1.0 # interaction
 h_MBL=float(sys.argv[1])/10 # MBL disorder strength
 #
@@ -107,17 +107,17 @@ if __name__ == '__main__':
 
         #        np.save('imbalance',(time_steps,mean_Imb))
         ##### plot results #####
-        import matplotlib.pyplot as plt
-        ### MBL plot ###
-        # subplot 1: diag enetropy vs ramp speed
-#       plt.plot(np.linspace(0,tmax,steps),mean_Imb,label="MBL",marker=".",color="blue") # plot data
-        plt.plot(time_steps,mean_Imb,label="MBL",marker=".",color="blue") # plot data
-        plt.ylabel("$s_d(t_f)$",fontsize=22) # label y-axis
-        plt.xlabel("$v/J_{zz}(0)$",fontsize=22) # label x-axis
-        plt.xscale("log") # set log scale on x-axis
-        plt.grid(True,which='both') # plot grid
-        plt.tick_params(labelsize=16)
-        # save figure
-        plt.savefig('imb_h'+str(h_MBL)+'.pdf', bbox_inches='tight')
+#         import matplotlib.pyplot as plt
+#         ### MBL plot ###
+#         # subplot 1: diag enetropy vs ramp speed
+# #       plt.plot(np.linspace(0,tmax,steps),mean_Imb,label="MBL",marker=".",color="blue") # plot data
+#         plt.plot(time_steps,mean_Imb,label="MBL",marker=".",color="blue") # plot data
+#         plt.ylabel("$s_d(t_f)$",fontsize=22) # label y-axis
+#         plt.xlabel("$v/J_{zz}(0)$",fontsize=22) # label x-axis
+#         plt.xscale("log") # set log scale on x-axis
+#         plt.grid(True,which='both') # plot grid
+#         plt.tick_params(labelsize=16)
+#         # save figure
+#         plt.savefig('imb_h'+str(h_MBL)+'.pdf', bbox_inches='tight')
 
  #       plt.show() # show plots
